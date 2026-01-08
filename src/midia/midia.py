@@ -17,11 +17,11 @@ class Midia(ABC):
         self.nota_media: float = nota_media
 
     @abstractmethod
-    def avaliar(self):
+    def avaliar(self, nota: float):
         pass
 
     @abstractmethod
-    def atualizar_status(self):
+    def atualizar_status(self, status: MidiaStatus):
         pass
 
     @abstractmethod
