@@ -1,4 +1,4 @@
-from ..midia import Midia, MidiaType, MidiaStatus
+from src.midia import Midia, MidiaType, MidiaStatus
 
 
 class Filme(Midia):
