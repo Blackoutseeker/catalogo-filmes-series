@@ -1,3 +1,5 @@
-from .midia import Midia, MidiaType, MidiaStatus
+from .midia import Midia
+from .serie import Serie, Temporada
+from .episodio import Episodio
 
-__all__ = ['Midia', 'MidiaType', 'MidiaStatus']
+__all__ = ['Midia', 'Serie', 'Temporada', 'Episodio']

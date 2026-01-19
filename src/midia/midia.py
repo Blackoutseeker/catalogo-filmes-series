@@ -1,37 +1,55 @@
 from abc import ABC, abstractmethod
-from .type import MidiaType
-from .status import MidiaStatus
 
 
 class Midia(ABC):
-    def __init__(self, titulo: str, tipo: MidiaType, genero: str, ano: int, duracao: float, classificacao: str,
-                 elenco: dict[str, str], status: MidiaStatus, nota_media: float):
+    def __init__(self, titulo: str, genero: str, ano: int, classificacao: str):
         self.titulo: str = titulo
-        self.tipo: MidiaType = tipo
+        self.tipo: str = ''
         self.genero: str = genero
         self.ano: int = ano
-        self.duracao: float = duracao
+        self.duracao: float = 0
         self.classificacao: str = classificacao
-        self.elenco: dict[str, str] = elenco
-        self.status: MidiaStatus = status
-        self.nota_media: float = nota_media
+        self.elenco: [dict[str, str]] = [{}]
+        self.status: str = 'Disponível'
+        self.nota_media: float = 0
+        self.notas: [float] = []
 
     @abstractmethod
+    def detalhes(self):
+        pass
+
     def avaliar(self, nota: float):
-        pass
+        if 0 <= nota <= 10:
+            self.notas.append(nota)
+            self.nota_media = sum(self.notas) / len(self.notas)
+            print(f"{self.titulo} avaliado com {nota}. Nova média: {self.nota_media:.1f}")
+        else:
+            print("Nota inválida.")
 
-    @abstractmethod
-    def atualizar_status(self, status: MidiaStatus):
-        pass
+    def atualizar_status(self, novo_status: str):
+        self.status = novo_status
 
-    @abstractmethod
     def __str__(self):
-        pass
+        return f"{self.titulo} ({self.ano}) - {self.genero} | Nota: {self.nota_media:.1f}"
 
-    @abstractmethod
     def __eq__(self, other):
-        pass
+        if isinstance(other, Midia):
+            return self.titulo.lower() == other.titulo.lower() and self.ano == other.ano
+        return False
 
-    @abstractmethod
     def __lt__(self, other):
-        pass
+        return self.titulo < other.titulo
+
+    def to_dict(self):
+        return {
+            "titulo": self.titulo,
+            "genero": self.genero,
+            "ano": self.ano,
+            "classificacao": self.classificacao,
+            "duracao": self.duracao,
+            "elenco": self.elenco,
+            "status": self.status,
+            "notas": self.notas,
+            "nota_media": self.nota_media,
+            "tipo_classe": self.__class__.__name__
+        }

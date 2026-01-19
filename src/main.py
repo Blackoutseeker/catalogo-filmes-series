@@ -1,10 +1,10 @@
 from sys import exit
-from cli import PromptInterface
+from src.cli import PromptInterface
 
 
 def main():
     prompt_interface = PromptInterface()
-    prompt_interface.show_main_menu()
+    prompt_interface.main()
 
 
 if __name__ == '__main__':
